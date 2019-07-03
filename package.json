@@ -1,11 +1,14 @@
 {
+  "homepage": "./",
   "name": "insert-sort-machine",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
+    "react-d3-library": "^1.1.8",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "styled-components": "^4.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
