@@ -21,7 +21,6 @@ public class IsortCompPlot extends Applet implements ActionListener
 
  static int isortSteps(int aux[])
  {
-    System.out.println("---");
     int steps = 0;
     int i,j,k,x;
     
@@ -46,11 +45,6 @@ public class IsortCompPlot extends Applet implements ActionListener
       v[j+1] = x;
       
     }
-    
-    System.out.print(steps);
-    System.out.print(" ");
-    System.out.print(Arrays.toString(aux));
-    System.out.println("---");
     return steps;
     
   }
