@@ -54,11 +54,12 @@ const Section = styled.div`
   }
 `;
 
-export default class IsortCompPlot extends React.Component {
+export default class IsortTimePlot extends React.Component {
   
   constructor(props){
     super(props);
     // Initializating the premutation module:
+    
     this.state = {
       average: 0,
       n: 5,
@@ -66,6 +67,7 @@ export default class IsortCompPlot extends React.Component {
       permutations: 0,
       loading: true,
     }
+
   }
 
   componentDidMount() {
@@ -86,12 +88,17 @@ export default class IsortCompPlot extends React.Component {
       while( (j > -1)&& (v[j] > x)  ){
           v[j+1] = v[j];
           j--;  
-          steps+=1;
+          steps+=3;
           
       }
-      if (j !== -1) steps++;
+      steps++;
+
       v[j+1] = x;
+      steps+=4;
+
     }
+
+    steps ++;
     return steps; 
   }
 
@@ -122,16 +129,33 @@ export default class IsortCompPlot extends React.Component {
 
   countSteps = (permutations) => {
     let totalSteps = 0;
-    let steps = {}
+    let steps = [];
+    let min = 10001;
+    let max = 0;
+    for (let i = 0; i < 1001; i++) {
+      steps.push({concurrency: 0, probability: 0, value: i})
+    }
+
     for (let i = 0; i < permutations.length; i++) {
       let singleCaseSteps = this.isortSteps(permutations[i]);
       totalSteps += singleCaseSteps;
       steps[singleCaseSteps] ? steps[singleCaseSteps].concurrency = steps[singleCaseSteps].concurrency + 1 : steps[singleCaseSteps] = {concurrency : 1};
     }
+
+
     steps = Object.keys(steps).map((key, index) => {
       steps[key].probability = steps[key].concurrency / permutations.length;
       steps[key].value = key;
       return steps[key]
+    })
+
+    steps.forEach((item) => {
+      if(item.concurrency && min > parseInt(item.value)) min = item.value
+      if(item.concurrency && max < parseInt(item.value)) max = item.value 
+    })
+
+    steps = steps.filter(step => {
+      return (parseInt(step.value) >= min && parseInt(step.value) <= max)
     })
     const average = totalSteps / permutations.length;
     return {average: average, steps: steps};

@@ -54,7 +54,7 @@ const Section = styled.div`
   }
 `;
 
-export default class IsortCompPlot extends React.Component {
+export default class IsortWhileQuestionPlot extends React.Component {
   
   constructor(props){
     super(props);
@@ -66,6 +66,7 @@ export default class IsortCompPlot extends React.Component {
       permutations: 0,
       loading: true,
     }
+
   }
 
   componentDidMount() {
@@ -89,7 +90,8 @@ export default class IsortCompPlot extends React.Component {
           steps+=1;
           
       }
-      if (j !== -1) steps++;
+      steps++;
+      
       v[j+1] = x;
     }
     return steps; 
@@ -122,17 +124,20 @@ export default class IsortCompPlot extends React.Component {
 
   countSteps = (permutations) => {
     let totalSteps = 0;
-    let steps = {}
+    let steps = [];
     for (let i = 0; i < permutations.length; i++) {
       let singleCaseSteps = this.isortSteps(permutations[i]);
       totalSteps += singleCaseSteps;
       steps[singleCaseSteps] ? steps[singleCaseSteps].concurrency = steps[singleCaseSteps].concurrency + 1 : steps[singleCaseSteps] = {concurrency : 1};
     }
+
+
     steps = Object.keys(steps).map((key, index) => {
       steps[key].probability = steps[key].concurrency / permutations.length;
       steps[key].value = key;
       return steps[key]
     })
+
     const average = totalSteps / permutations.length;
     return {average: average, steps: steps};
   }
