@@ -5,31 +5,17 @@ import BarChart from '../../utilities/d3BarChart';
 const Section = styled.div`
   width: 100%;
   margin-top: 20px;
+`;
 
-  form {
-    input {
-      height: 20px;
-      margin: 0px 5px;
-      padding: 0px 5px;
-      border: solid 1px black;
-      border-radius: 5px;
-    }
-
-    button {
-      cursor: pointer;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 4px;
-
-      &:hover {
-        background-color: darkgray;
-      }
-    }
-  }
+const TableContainer = styled.div`
+  width: 100%;
+  height: 300px;
+  overflow-y: auto;
 
   table {
     margin-top: 30px;
     width: 100%;
+    height: auto;
     text-align: center;
     border-collapse: collapse;
     padding: 5px;
@@ -47,12 +33,14 @@ const Section = styled.div`
     }
 
     tr {
+      height: 30px;
+
       &:hover {
         background-color: #f5f5f5;
       }
     }
   }
-`;
+`
 
 export default class IsortTimePlot extends React.Component {
   
@@ -142,24 +130,26 @@ export default class IsortTimePlot extends React.Component {
     return(
       <Section>
         <h2>Time</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>P()</th>
-              <th>Probability</th>
-              <th>Concurrency</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.steps.map((item) => {
-              return <tr key={item.value}>
-                <td>P({item.value})</td>
-                <td>{item.probability}</td>
-                <td>{item.concurrency}</td>
+        <TableContainer>
+          <table>
+            <thead>
+              <tr>
+                <th>P()</th>
+                <th>Probability</th>
+                <th>Concurrency</th>
               </tr>
-            })}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {this.state.steps.map((item) => {
+                return <tr key={item.value}>
+                  <td>P({item.value})</td>
+                  <td>{item.probability}</td>
+                  <td>{item.concurrency}</td>
+                </tr>
+              })}
+            </tbody>
+          </table>
+        </TableContainer>
         <h4>Promedio de pasos hechos: {this.state.average}</h4>
         <BarChart 
           data={this.state.steps}

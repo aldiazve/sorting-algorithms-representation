@@ -5,10 +5,18 @@ import BarChart from '../../utilities/d3BarChart';
 const Section = styled.div`
   width: 100%;
   margin-top: 20px;
+  
+`;
+
+const TableContainer = styled.div`
+  width: 100%;
+  height: 300px;
+  overflow-y: auto;
 
   table {
     margin-top: 30px;
     width: 100%;
+    height: auto;
     text-align: center;
     border-collapse: collapse;
     padding: 5px;
@@ -26,12 +34,14 @@ const Section = styled.div`
     }
 
     tr {
+      height: 30px;
+
       &:hover {
         background-color: #f5f5f5;
       }
     }
   }
-`;
+`
 
 export default class IsortWhileQuestionPlot extends React.Component {
   
@@ -103,24 +113,26 @@ export default class IsortWhileQuestionPlot extends React.Component {
     return(
       <Section>
         <h2>While questions</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>P()</th>
-              <th>Probability</th>
-              <th>Concurrency</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.steps.map((item) => {
-              return <tr key={item.value}>
-                <td>P({item.value})</td>
-                <td>{item.probability}</td>
-                <td>{item.concurrency}</td>
+        <TableContainer>
+          <table>
+            <thead>
+              <tr>
+                <th>P()</th>
+                <th>Probability</th>
+                <th>Concurrency</th>
               </tr>
-            })}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {this.state.steps.map((item) => {
+                return <tr key={item.value}>
+                  <td>P({item.value})</td>
+                  <td>{item.probability}</td>
+                  <td>{item.concurrency}</td>
+                </tr>
+              })}
+            </tbody>
+          </table>
+        </TableContainer>
         <h4>Promedio de pasos hechos: {this.state.average}</h4>
         {!this.state.loading ? 
           <BarChart 
