@@ -24,10 +24,12 @@ Clonar el repo:
 git clone https://github.com/aldiazve/sorting-algorithms-representation.git
 ```
 
-Installar los paquetes de usando npm e iniciar el server local de webpack
+Installar los paquetes de usando npm e iniciar el server local de webpack.
 
 ```cmd
 cd https://github.com/aldiazve/sorting-algorithms-representation.git
 npm i
 npm start
 ```
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
